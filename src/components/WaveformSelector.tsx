@@ -1,20 +1,26 @@
-import { synthOneOptionsActions } from "../store";
-import { useAppDispatch } from "../store/hooks";
 import { WaveformType } from "../store/types/storeTypes";
 import { ChangeEvent } from "react";
-import { useControllerContext } from "../context/controllerContext";
 import { useSynthContext } from "../context/synthContext";
 
 export default function WaveformSelector({ synthId }: { synthId: 1 | 2 }) {
-  const dispatch = useAppDispatch();
-  const controller = useControllerContext();
+  // const dispatch = useAppDispatch();
+  // const controller = useControllerContext();
   const synth = useSynthContext();
 
+  // function handleWaveformChange(e: ChangeEvent) {
+  //   const value = (e.target as HTMLSelectElement).value as WaveformType;
+  //   dispatch(synthOneOptionsActions.setOscillator(value));
+  //   controller.unlink();
+  //   synth.dispose();
+  // }
+
   function handleWaveformChange(e: ChangeEvent) {
-    const value = (e.target as HTMLSelectElement).value as WaveformType;
-    dispatch(synthOneOptionsActions.setOscillator(value));
-    controller.unlink();
-    synth.dispose();
+    synth.releaseAll();
+    synth.set({
+      oscillator: {
+        type: (e.target as HTMLSelectElement).value as WaveformType,
+      },
+    });
   }
 
   return (

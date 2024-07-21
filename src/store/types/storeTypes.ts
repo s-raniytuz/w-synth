@@ -1,11 +1,11 @@
 export type WaveformType = "sine" | "triangle" | "sawtooth" | "square";
 
-export type EnvelopeType = {
+export interface EnvelopeType {
   attack: number;
   decay: number;
   sustain: number;
   release: number;
-};
+}
 
 export type SynthOptionsType = {
   oscillator: {
