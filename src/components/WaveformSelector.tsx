@@ -1,4 +1,4 @@
-import { WaveformType } from "../store/types/storeTypes";
+import { ExtendedWaveformType } from "../types";
 import { ChangeEvent } from "react";
 import { useSynthContext } from "../context/synthContext";
 
@@ -18,7 +18,7 @@ export default function WaveformSelector({ synthId }: { synthId: 1 | 2 }) {
     synth.releaseAll();
     synth.set({
       oscillator: {
-        type: (e.target as HTMLSelectElement).value as WaveformType,
+        type: (e.target as HTMLSelectElement).value as ExtendedWaveformType,
       },
     });
   }

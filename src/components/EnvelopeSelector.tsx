@@ -1,35 +1,22 @@
 import { ChangeEvent, useState } from "react";
 import { useSynthContext } from "../context/synthContext";
-import { EnvelopeType } from "../types/Envelope";
-import { ExtendedEnvelopePropsType } from "../types/Envelope";
+import { ExtendedEnvelopeType } from "../types";
+import { ExtendedEnvelopePropsType } from "../types";
 
 export default function EnvelopeSelector() {
   const synth = useSynthContext();
 
-  const [envelopeState, setEnvelopeState] = useState<EnvelopeType<string>>({
+  const [envelopeState, setEnvelopeState] = useState<
+    ExtendedEnvelopeType<string>
+  >({
     attack: synth.get().envelope.attack.toString(),
     decay: synth.get().envelope.decay.toString(),
     sustain: synth.get().envelope.sustain.toString(),
     release: synth.get().envelope.release.toString(),
+    attackCurve: synth.get().envelope.attackCurve,
+    decayCurve: synth.get().envelope.decayCurve,
+    releaseCurve: synth.get().envelope.releaseCurve,
   });
-  // const controller = useControllerContext();
-
-  // const dispatch = useAppDispatch();
-
-  // const envelope = useAppSelector((state) => state.synthOneOptions.envelope);
-  // const [envelopeState, setEnvelopeState] = useState<EnvelopeType>(envelope);
-
-  // function handleEnvelopeChange(e: ChangeEvent, type: EnvelopePropsType) {
-  //   const value = (e.target as HTMLInputElement).value;
-  //   const newState: EnvelopeType = {
-  //     ...envelope,
-  //     [type]: Number(value),
-  //   };
-  //   dispatch(synthOneOptionsActions.setEnvelope(newState));
-  //   setEnvelopeState(newState);
-  //   controller.unlink();
-  //   synth.dispose();
-  // }
 
   function handleEnvelopeChange(
     e: ChangeEvent,

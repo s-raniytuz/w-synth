@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RackInitialStateType } from "../types/storeTypes";
+import { EffectRackInitialStateType } from "../../types";
 
-const initialState: RackInitialStateType[] = [];
+const initialState: EffectRackInitialStateType[] = [];
 
 const synthOneEffectRackSlice = createSlice({
   name: "synthOneEffectRackSlice",

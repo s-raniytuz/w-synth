@@ -1,19 +1,24 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
-  EnvelopeType,
   SynthOptionsType,
-  WaveformType,
-} from "../types/storeTypes";
+  ExtendedEnvelopeType,
+  ExtendedWaveformType,
+} from "../../types";
 
 const initialSynthState: SynthOptionsType = {
   oscillator: {
     type: "sine",
+    mute: false,
+    phase: 0,
   },
   envelope: {
     attack: 0.005,
     decay: 1,
     sustain: 0,
     release: 1,
+    attackCurve: "linear",
+    decayCurve: "linear",
+    releaseCurve: "linear",
   },
   volume: 30,
   detune: 0,
@@ -24,10 +29,10 @@ const synthOneOptionsSlice = createSlice({
   name: "polySynth",
   initialState: initialSynthState,
   reducers: {
-    setOscillator(state, action: PayloadAction<WaveformType>) {
+    setOscillator(state, action: PayloadAction<ExtendedWaveformType>) {
       state.oscillator.type = action.payload;
     },
-    setEnvelope(state, action: PayloadAction<EnvelopeType>) {
+    setEnvelope(state, action: PayloadAction<ExtendedEnvelopeType<number>>) {
       state.envelope = action.payload;
     },
   },

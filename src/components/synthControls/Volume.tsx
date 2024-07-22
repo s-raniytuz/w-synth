@@ -9,7 +9,7 @@ export default function Volume() {
     const value = parseInt((e.target as HTMLInputElement).value);
     if (value === 0) {
       synth.set({
-        volume: -100,
+        volume: -1000,
       });
     } else {
       synth.set({
