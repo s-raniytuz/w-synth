@@ -21,6 +21,9 @@ export default function Volume() {
 
   return (
     <div className="volume">
+      <label htmlFor="volume" className="block text-sm text-white">
+        Volume {Math.round(volumeState)}
+      </label>
       <input
         type="range"
         name="volume"
@@ -29,9 +32,6 @@ export default function Volume() {
         value={synth.get().volume}
         onChange={handleVolumeChange}
       />
-      <label htmlFor="volume" className="block text-sm text-white">
-        Volume {Math.round(volumeState)}
-      </label>
     </div>
   );
 }

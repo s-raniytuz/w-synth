@@ -2,6 +2,8 @@ import { ChangeEvent, useState } from "react";
 import { useSynthContext } from "../context/synthContext";
 import { ExtendedEnvelopeType } from "../types";
 import { ExtendedEnvelopePropsType } from "../types";
+import EnvelopeAttack from "./synthControls/envelope/EnvelopeAttack";
+import EnvelopeDecay from "./synthControls/envelope/EnvelopeDecay";
 
 export default function EnvelopeSelector() {
   const synth = useSynthContext();
@@ -37,33 +39,13 @@ export default function EnvelopeSelector() {
   }
 
   return (
-    <>
-      <input
-        type="range"
-        name="attack"
-        min={0}
-        max={10}
-        step={0.01}
-        value={envelopeState.attack}
-        onChange={(e: ChangeEvent) => handleEnvelopeChange(e, "attack")}
-      />
-      <label htmlFor="attack" className="block text-sm text-white">
-        Attack {envelopeState.attack}
-      </label>
+    <div className="envelope-selector">
+      <EnvelopeAttack />
+      <EnvelopeDecay />
 
-      <input
-        type="range"
-        name="decay"
-        min={0}
-        max={10}
-        step={0.01}
-        value={envelopeState.decay}
-        onChange={(e) => handleEnvelopeChange(e, "decay")}
-      />
-      <label htmlFor="decay" className="block text-sm text-white">
-        Decay {envelopeState.decay}
+      <label htmlFor="sustain" className="block text-sm text-white">
+        Sustain {envelopeState.sustain}
       </label>
-
       <input
         type="range"
         name="sustain"
@@ -73,10 +55,10 @@ export default function EnvelopeSelector() {
         value={envelopeState.sustain}
         onChange={(e) => handleEnvelopeChange(e, "sustain")}
       />
-      <label htmlFor="sustain" className="block text-sm text-white">
-        Sustain {envelopeState.sustain}
-      </label>
 
+      <label htmlFor="release" className="block text-sm text-white">
+        Release {envelopeState.release}
+      </label>
       <input
         type="range"
         name="release"
@@ -86,9 +68,6 @@ export default function EnvelopeSelector() {
         value={envelopeState.release}
         onChange={(e) => handleEnvelopeChange(e, "release")}
       />
-      <label htmlFor="release" className="block text-sm text-white">
-        Release {envelopeState.release}
-      </label>
-    </>
+    </div>
   );
 }
