@@ -73,13 +73,13 @@ export default function EnvelopeAttack() {
         <SelectContent>
           <SelectGroup>
             <SelectLabel>Attack Curve</SelectLabel>
-            <SelectItem value="linear">Linear</SelectItem>
-            <SelectItem value="exponential">Exp</SelectItem>
-            <SelectItem value="sine">Sine</SelectItem>
-            <SelectItem value="cosine">Cosine</SelectItem>
-            <SelectItem value="bounce">Bounce</SelectItem>
-            <SelectItem value="ripple">Ripple</SelectItem>
-            <SelectItem value="step">Step</SelectItem>
+            <SelectItem value="linear">&zwnj;Linear</SelectItem>
+            <SelectItem value="exponential">&zwnj;Exp</SelectItem>
+            <SelectItem value="sine">&zwnj;Sine</SelectItem>
+            <SelectItem value="cosine">&zwnj;Cosine</SelectItem>
+            <SelectItem value="bounce">&zwnj;Bounce</SelectItem>
+            <SelectItem value="ripple">&zwnj;Ripple</SelectItem>
+            <SelectItem value="step">&zwnj;Step</SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>

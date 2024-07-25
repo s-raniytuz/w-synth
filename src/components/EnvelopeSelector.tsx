@@ -4,6 +4,7 @@ import { ExtendedEnvelopeType } from "../types";
 import { ExtendedEnvelopePropsType } from "../types";
 import EnvelopeAttack from "./synthControls/envelope/EnvelopeAttack";
 import EnvelopeDecay from "./synthControls/envelope/EnvelopeDecay";
+import Knob from "./custom-ui/knob/Knob";
 
 export default function EnvelopeSelector() {
   const synth = useSynthContext();
@@ -42,7 +43,6 @@ export default function EnvelopeSelector() {
     <div className="envelope-selector">
       <EnvelopeAttack />
       <EnvelopeDecay />
-
       <label htmlFor="sustain" className="block text-sm text-white">
         Sustain {envelopeState.sustain}
       </label>
@@ -55,7 +55,6 @@ export default function EnvelopeSelector() {
         value={envelopeState.sustain}
         onChange={(e) => handleEnvelopeChange(e, "sustain")}
       />
-
       <label htmlFor="release" className="block text-sm text-white">
         Release {envelopeState.release}
       </label>
@@ -68,6 +67,7 @@ export default function EnvelopeSelector() {
         value={envelopeState.release}
         onChange={(e) => handleEnvelopeChange(e, "release")}
       />
+      <Knob className="bg-slate-800" />
     </div>
   );
 }

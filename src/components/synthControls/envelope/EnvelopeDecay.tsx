@@ -74,8 +74,8 @@ export default function EnvelopeDecay() {
         <SelectContent>
           <SelectGroup>
             <SelectLabel>Decay Curve</SelectLabel>
-            <SelectItem value="linear">Linear</SelectItem>
-            <SelectItem value="exponential">Exp</SelectItem>
+            <SelectItem value="linear">&zwnj;Linear</SelectItem>
+            <SelectItem value="exponential">&zwnj;Exp</SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>
