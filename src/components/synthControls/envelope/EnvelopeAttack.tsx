@@ -10,6 +10,7 @@ import {
 import { useSynthContext } from "@/context/synthContext";
 import { ChangeEvent, useState } from "react";
 import { EnvelopeCurve } from "tone";
+import Knob from "@/components/custom-ui/knob/Knob";
 
 export default function EnvelopeAttack() {
   const synth = useSynthContext();
@@ -51,9 +52,14 @@ export default function EnvelopeAttack() {
   }
 
   return (
-    <div className="envelope-attack">
-      <p>Attack: {attackState.attack}</p>
-      <input
+    <div className="envelope-attack flex h-full w-full flex-col items-center justify-between py-4">
+      <p
+        onDragStart={(e) => e.preventDefault()}
+        className="cursor-default select-none font-subjectivity text-sm font-medium text-slate-800"
+      >
+        Attack
+      </p>
+      {/* <input
         type="range"
         name="attack"
         min={0}
@@ -61,13 +67,17 @@ export default function EnvelopeAttack() {
         step={0.01}
         value={attackState.attack}
         onChange={handleAttackChange}
-      />
+      /> */}
+      <Knob className="h-11 w-11" />
 
       <Select
         value={attackState.attackCurve.toString()}
         onValueChange={handleAttackCurveChange}
       >
-        <SelectTrigger className="w-[90px] text-[12px]">
+        <SelectTrigger
+          onDragStart={(e) => e.preventDefault()}
+          className="h-1 w-[50px] select-none text-[12px]"
+        >
           <SelectValue />
         </SelectTrigger>
         <SelectContent>

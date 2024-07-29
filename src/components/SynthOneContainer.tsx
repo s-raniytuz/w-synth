@@ -11,7 +11,7 @@ export default function SynthOneContainer() {
   return (
     <div
       id="synth-one-container"
-      className="flex h-[50%] rounded-xl bg-[#E2E7F3] bg-gradient-to-b from-[#E2E7F3] to-[#B7BFD2]"
+      className="flex min-h-[20.85rem] flex-1 rounded-xl bg-[#E2E7F3] bg-gradient-to-b from-[#E2E7F3] to-[#B7BFD2]"
     >
       <SynthContext.Provider value={synth}>
         <Controller synthId={1} />

@@ -6,10 +6,10 @@ Tone.start();
 
 function App() {
   return (
-    <>
+    <div className="app flex flex-grow flex-col">
       <Header />
       <GlobalSynthRack />
-    </>
+    </div>
   );
 }
 

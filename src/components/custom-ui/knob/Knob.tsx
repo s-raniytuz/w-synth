@@ -5,7 +5,7 @@ import {
   percentToValue,
   valueToPercent,
   percentToDegree,
-} from "./knobFunctions.ts";
+} from "./knobFunctions";
 
 const DEFAULT_KNOB_OFFSET = -135;
 
@@ -14,17 +14,21 @@ export default function Knob({
   max = 10,
   initValue = 5,
   className,
+  speed = 1,
   onChange = () => {},
 }: {
   min?: number;
   max?: number;
   initValue?: number;
   className?: string;
+  speed?: number;
   onChange?: (value: number) => void;
 }) {
-  const knobRef = useRef<null | HTMLDivElement>(null);
+  const inputref = useRef<null | HTMLDivElement>(null);
 
-  let prevDeg = percentToDegree(valueToPercent(min, max, initValue));
+  let degree = percentToDegree(valueToPercent(min, max, initValue));
+  let prevDelta: number = 0;
+  let mousepos: number;
 
   const initialRotation = percentToDegree(valueToPercent(min, max, initValue));
 
@@ -39,7 +43,7 @@ export default function Knob({
   | Sets knob's position on initial render based on the initValue
   */
   useEffect(() => {
-    (knobRef.current as HTMLDivElement).style.transform = `rotate(${
+    (inputref.current as HTMLDivElement).style.transform = `rotate(${
       initialRotation + DEFAULT_KNOB_OFFSET
     }deg)`;
   }, [initialRotation]);
@@ -50,9 +54,19 @@ export default function Knob({
   |
   | NUMBER 1 IN THE EXECUTION FLOW
   */
-  function handleInitializePositionTracker() {
-    document.addEventListener("mousemove", calculatePosition);
+  function handleInitializePositionTracker(e: React.MouseEvent) {
+    e.stopPropagation();
+
+    mousepos = e.clientY;
+
+    document.addEventListener("mousemove", calculatePositionMiddleware);
     document.addEventListener("mouseup", trackerCleanup);
+  }
+
+  function calculatePositionMiddleware(e: MouseEvent) {
+    e.stopPropagation();
+
+    calculatePosition(e, mousepos);
   }
 
   /*
@@ -60,47 +74,30 @@ export default function Knob({
   |
   | NUMBER 2 IN THE EXECUTION FLOW
   */
-  function calculatePosition(e: MouseEvent) {
-    const knob = knobRef.current as HTMLDivElement;
-
-    /*
-    | X and Y coordinates of the knob's center
-    */
-    const xPos = knob.offsetLeft + knob.offsetWidth / 2;
-    const yPos = knob.offsetTop + knob.offsetHeight / 2;
-
+  function calculatePosition(e: MouseEvent, mousepos: number) {
+    e.stopPropagation();
     /*
     | Distance from the mouse to the knob's center on X and Y axis
     */
-    const deltaX = (xPos - e.clientX) * -1;
-    const deltaY = yPos - e.clientY;
+    const deltaY = mousepos - e.clientY;
 
-    /*
-    | converts deltas to radians 
-    | (it is increased by the offset to compensate for negative values in the left part of the knob)
-    */
-    const rad =
-      Math.atan2(deltaX, deltaY) +
-      Math.abs(DEFAULT_KNOB_OFFSET) * (Math.PI / 180);
-
-    /*
-    | converts radians to degrees
-    */
-    const deg = Number((rad * (180 / Math.PI)).toFixed(4));
-
-    /*
-    | Prevents the knob from jumping between extreme values
-    | THIS PART MIGHT CAUSE BUGS AS IT IS NOT 100% PRECISE
-    */
-    if (deg >= 0 && deg <= 270) {
-      if (prevDeg <= 5 && deg <= 15) {
-        propagatePosition(deg);
-      } else if (prevDeg >= 265 && deg >= 255) {
-        propagatePosition(deg);
-      } else if (prevDeg > 5 && prevDeg < 265) {
-        propagatePosition(deg);
-      }
+    if (deltaY > prevDelta && degree < 270) {
+      degree += (deltaY - prevDelta) * speed;
+    } else if (deltaY < prevDelta && degree > 0) {
+      degree -= (prevDelta - deltaY) * speed;
     }
+
+    prevDelta = deltaY;
+
+    if (degree >= 270) {
+      propagatePosition(270);
+    } else if (degree > 0) {
+      propagatePosition(degree);
+    } else {
+      propagatePosition(0);
+    }
+
+    prevDelta = deltaY;
   }
 
   /*
@@ -109,23 +106,23 @@ export default function Knob({
   |
   | NUMBER 3 IN THE EXECUTION FLOW
   */
-  function propagatePosition(deg: number) {
-    prevDeg = deg;
-    (knobRef.current as HTMLDivElement).style.transform = `rotate(${
-      deg + DEFAULT_KNOB_OFFSET
+  function propagatePosition(degree: number) {
+    (inputref.current as HTMLDivElement).style.transform = `rotate(${
+      degree + DEFAULT_KNOB_OFFSET
     }deg)`;
 
-    onChange(percentToValue(min, max, degreeToPercent(deg)));
+    onChange(percentToValue(min, max, degreeToPercent(degree)));
   }
 
   /*
-  | Cleans up all knob related event listeners after the LMB was released
+  | Cleans up all event listeners after the LMB was released
   |
   | LAST IN THE EXECUTION FLOW
   */
   function trackerCleanup() {
-    document.removeEventListener("mousemove", calculatePosition);
-    prevDeg = 90;
+    document.removeEventListener("mousemove", calculatePositionMiddleware);
+    prevDelta = 0;
+
     document.removeEventListener("mouseup", trackerCleanup);
   }
 
@@ -133,8 +130,10 @@ export default function Knob({
     <div
       onMouseDown={handleInitializePositionTracker}
       onDoubleClick={() => propagatePosition(initValue)}
-      ref={knobRef}
-      className={knobClassName}
+      onDragStart={(e) => e.preventDefault()}
+      draggable="false"
+      ref={inputref}
+      className={`${className} knob`}
     ></div>
   );
 }

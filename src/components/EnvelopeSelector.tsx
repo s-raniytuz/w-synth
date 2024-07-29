@@ -4,7 +4,7 @@ import { ExtendedEnvelopeType } from "../types";
 import { ExtendedEnvelopePropsType } from "../types";
 import EnvelopeAttack from "./synthControls/envelope/EnvelopeAttack";
 import EnvelopeDecay from "./synthControls/envelope/EnvelopeDecay";
-import Knob from "./custom-ui/knob/Knob";
+import Knob from "./custom-ui/knob/TrackingKnob";
 
 export default function EnvelopeSelector() {
   const synth = useSynthContext();
@@ -40,10 +40,13 @@ export default function EnvelopeSelector() {
   }
 
   return (
-    <div className="envelope-selector">
+    <div className="envelope-selector flex h-full w-full justify-between px-1">
       <EnvelopeAttack />
-      <EnvelopeDecay />
-      <label htmlFor="sustain" className="block text-sm text-white">
+      <EnvelopeAttack />
+      <EnvelopeAttack />
+      <EnvelopeAttack />
+      {/* <EnvelopeDecay /> */}
+      {/* <label htmlFor="sustain" className="block text-sm text-white">
         Sustain {envelopeState.sustain}
       </label>
       <input
@@ -67,7 +70,7 @@ export default function EnvelopeSelector() {
         value={envelopeState.release}
         onChange={(e) => handleEnvelopeChange(e, "release")}
       />
-      <Knob className="bg-slate-800" />
+      <Knob className="bg-slate-800" /> */}
     </div>
   );
 }
