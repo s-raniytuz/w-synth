@@ -8,6 +8,7 @@ import WaveformSelector from "./WaveformSelector";
 import EnvelopeSelector from "./EnvelopeSelector";
 import { ControllerContext } from "../context/controllerContext";
 import SynthMainControlsContainer from "./SynthMainControlsContainer";
+import WaveformDisplay from "./custom-ui/WaveformDisplay";
 
 const controller = new KeyboardMidiController();
 
@@ -24,14 +25,18 @@ export default function Controller({ synthId }: { synthId: 1 | 2 }) {
   controller.controllerOutputAttack = handleKeydown;
   controller.controllerOutputRelease = handleKeyup;
 
-  controller.link();
+  if (!controller.isLinked) {
+    controller.link();
+  }
   return (
     <>
       <ControllerContext.Provider value={controller}>
-        <div className="h-96 w-48 bg-black">
-          <WaveformSelector synthId={synthId} />
-          <EnvelopeSelector />
-          <SynthMainControlsContainer />
+        <div className="waveform-select-container flex h-full w-[50%] items-center justify-center p-2">
+          <WaveformDisplay />
+        </div>
+        <div className="synth-controls-container h-full w-[50%]">
+          {/* <EnvelopeSelector />
+          <SynthMainControlsContainer /> */}
         </div>
         <Gain prevAudioNode={synth} payload={0.01} />
       </ControllerContext.Provider>
