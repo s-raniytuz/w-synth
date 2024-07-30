@@ -7,71 +7,70 @@ import {
   SelectLabel,
   SelectValue,
 } from "@/components/ui/select";
-import { useSynthContext } from "@/context/synthContext";
 import { useState } from "react";
+import { EnvelopeCurve } from "tone";
+import { useSynthContext } from "@/context/synthContext";
 import Knob from "@/components/custom-ui/knob/Knob";
 
-type DecayType = "linear" | "exponential";
-
-export default function EnvelopeDecay() {
+export default function EnvelopeRelease() {
   const synth = useSynthContext();
 
-  const [decayState, setDecayState] = useState<{
-    decay: string | number;
-    decayCurve: DecayType;
+  const [releaseState, setReleaseState] = useState<{
+    release: number | string;
+    releaseCurve: EnvelopeCurve;
   }>({
-    decay: synth.get().envelope.decay.toString(),
-    decayCurve: synth.get().envelope.decayCurve.toString() as DecayType,
+    release: synth.get().envelope.release.toString(),
+    releaseCurve: synth.get().envelope.releaseCurve.toString() as EnvelopeCurve,
   });
 
-  function handleDecayChange(value: number) {
+  function handleReleaseChange(value: number) {
     synth.set({
       envelope: {
-        decay: value,
+        release: value,
       },
     });
-    setDecayState((prev) => {
+    setReleaseState((prev) => {
       return {
         ...prev,
-        decay: value,
+        release: value,
       };
     });
   }
 
-  function handleDecayCurveChange(value: string) {
+  function handleReleaseCurveChange(value: string) {
     synth.set({
       envelope: {
-        decayCurve: value as DecayType,
+        releaseCurve: value as EnvelopeCurve,
       },
     });
-    setDecayState((prev) => {
+    setReleaseState((prev) => {
       return {
         ...prev,
-        decayCurve: value as DecayType,
+        releaseCurve: value as EnvelopeCurve,
       };
     });
   }
 
   return (
-    <div className="envelope-decay flex h-full w-full flex-col items-center justify-between py-3">
+    <div className="envelope-attack flex h-full w-full flex-col items-center justify-between py-3">
       <p
         onDragStart={(e) => e.preventDefault()}
         className="text-centauri-black font-nohemi cursor-default select-none text-[0.8rem] font-medium opacity-85"
       >
-        Decay
+        Release
       </p>
 
       <Knob
         min={0}
         max={5}
-        initValue={decayState.decay}
-        onChange={handleDecayChange}
+        initValue={releaseState.release}
+        onChange={handleReleaseChange}
         className="bg-centauriBlack h-11 w-11"
       />
 
       <Select
-        value={decayState.decayCurve.toString()}
-        onValueChange={handleDecayCurveChange}
+        value={releaseState.releaseCurve.toString()}
+        onValueChange={handleReleaseCurveChange}
       >
         <SelectTrigger
           onDragStart={(e) => e.preventDefault()}
@@ -82,9 +81,14 @@ export default function EnvelopeDecay() {
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel>Decay Curve</SelectLabel>
+            <SelectLabel>Release Curve</SelectLabel>
             <SelectItem value="linear">&zwnj;Linear</SelectItem>
             <SelectItem value="exponential">&zwnj;Exp</SelectItem>
+            <SelectItem value="sine">&zwnj;Sine</SelectItem>
+            <SelectItem value="cosine">&zwnj;Cosine</SelectItem>
+            <SelectItem value="bounce">&zwnj;Bounce</SelectItem>
+            <SelectItem value="ripple">&zwnj;Ripple</SelectItem>
+            <SelectItem value="step">&zwnj;Step</SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>

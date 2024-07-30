@@ -18,6 +18,7 @@ module.exports = {
     },
     extend: {
       colors: {
+        "centauri-black": "hsl(var(--centauri-black))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -73,6 +74,7 @@ module.exports = {
       },
       fontFamily: {
         subjectivity: ["Subjectivity", "sans-serif"],
+        nohemi: ["Nohemi", "sans-serif"],
       },
     },
   },

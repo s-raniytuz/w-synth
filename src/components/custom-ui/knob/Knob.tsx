@@ -19,25 +19,27 @@ export default function Knob({
 }: {
   min?: number;
   max?: number;
-  initValue?: number;
+  initValue?: number | string;
   className?: string;
   speed?: number;
   onChange?: (value: number) => void;
 }) {
   const inputref = useRef<null | HTMLDivElement>(null);
 
-  let degree = percentToDegree(valueToPercent(min, max, initValue));
+  let degree = percentToDegree(valueToPercent(min, max, Number(initValue)));
   let prevDelta: number = 0;
   let mousepos: number;
 
-  const initialRotation = percentToDegree(valueToPercent(min, max, initValue));
+  const initialRotation = percentToDegree(
+    valueToPercent(min, max, Number(initValue)),
+  );
 
-  let knobClassName: string;
-  if (className) {
-    knobClassName = `knob ${className}`;
-  } else {
-    knobClassName = "knob";
-  }
+  // let knobClassName: string;
+  // if (className) {
+  //   knobClassName = `knob ${className}`;
+  // } else {
+  //   knobClassName = "knob";
+  // }
 
   /*
   | Sets knob's position on initial render based on the initValue
@@ -106,12 +108,12 @@ export default function Knob({
   |
   | NUMBER 3 IN THE EXECUTION FLOW
   */
-  function propagatePosition(degree: number) {
+  function propagatePosition(degree: number | string) {
     (inputref.current as HTMLDivElement).style.transform = `rotate(${
-      degree + DEFAULT_KNOB_OFFSET
+      Number(degree) + DEFAULT_KNOB_OFFSET
     }deg)`;
 
-    onChange(percentToValue(min, max, degreeToPercent(degree)));
+    onChange(percentToValue(min, max, degreeToPercent(Number(degree))));
   }
 
   /*
@@ -127,13 +129,18 @@ export default function Knob({
   }
 
   return (
-    <div
-      onMouseDown={handleInitializePositionTracker}
-      onDoubleClick={() => propagatePosition(initValue)}
-      onDragStart={(e) => e.preventDefault()}
-      draggable="false"
-      ref={inputref}
-      className={`${className} knob`}
-    ></div>
+    <div className="knob-wrapper relative">
+      <div
+        onMouseDown={handleInitializePositionTracker}
+        onDoubleClick={() => propagatePosition(initValue)}
+        onDragStart={(e) => e.preventDefault()}
+        draggable="false"
+        ref={inputref}
+        className={`${className} knob`}
+      ></div>
+      <div className="min-position bg-centauri-black absolute -left-[0rem] bottom-[0.08rem] h-[0.12rem] w-[0.3rem] -rotate-45 opacity-50"></div>
+      <div className="max-position bg-centauri-black absolute -right-[0rem] bottom-[0.08rem] h-[0.12rem] w-[0.3rem] rotate-45 opacity-50"></div>
+      <div className="middle-position bg-centauri-black absolute -top-[0.4rem] h-[0.12rem] w-[0.3rem] translate-x-5 rotate-90 opacity-50"></div>
+    </div>
   );
 }

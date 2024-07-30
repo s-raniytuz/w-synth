@@ -28,10 +28,11 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
-    --centauri-background: 220 100% 5%;
+    --centauri-black: 220 100% 5%;
   }
 
   .dark {
+    --centauri-black: 220 100% 5%;
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
     --card: 222.2 84% 4.9%;
@@ -61,14 +62,38 @@
 
 @font-face {
   font-family: "Subjectivity";
-  src: url("/fonts/Subjectivity-Regular.woff2") format("woff2");
+  src: url("/fonts/subjectivity/Subjectivity-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
 }
 @font-face {
   font-family: "Subjectivity";
-  src: url("/fonts/Subjectivity-Medium.woff2") format("woff2");
+  src: url("/fonts/subjectivity/Subjectivity-Medium.woff2") format("woff2");
   font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Nohemi";
+  src: url("/fonts/nohemi/Nohemi-Light.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Nohemi";
+  src: url("/fonts/nohemi/Nohemi-Regular.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Nohemi";
+  src: url("/fonts/nohemi/Nohemi-Medium.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Nohemi";
+  src: url("/fonts/nohemi/Nohemi-SemiBold.woff2") format("woff2");
+  font-weight: 700;
   font-style: normal;
 }
 

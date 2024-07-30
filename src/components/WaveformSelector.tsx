@@ -31,10 +31,10 @@ export default function WaveformSelector({
   return (
     <div className={`waveform-selector ${className}`}>
       <Select onValueChange={handleWaveformChange}>
-        <SelectTrigger className="text-md ml-2 mt-2 flex select-none justify-center gap-2 border-none font-subjectivity">
+        <SelectTrigger className="font-nohemi ml-2 mt-2 flex select-none justify-center gap-2 border-none text-[0.9rem] font-light tracking-[0.05rem] opacity-95">
           <SelectValue placeholder="Sine"></SelectValue>
         </SelectTrigger>
-        <SelectContent className="border-gray-800 bg-black font-subjectivity">
+        <SelectContent className="font-nohemi border-gray-800 bg-black tracking-[0.05rem]">
           <SelectGroup>
             <SelectLabel>Waveform</SelectLabel>
             <SelectItem value="sine">&zwnj;Sine</SelectItem>

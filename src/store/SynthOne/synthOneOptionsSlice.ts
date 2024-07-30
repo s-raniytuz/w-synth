@@ -12,8 +12,8 @@ const initialSynthState: SynthOptionsType = {
     phase: 0,
   },
   envelope: {
-    attack: 0.005,
-    decay: 1,
+    attack: 0.01,
+    decay: 2,
     sustain: 0,
     release: 1,
     attackCurve: "linear",

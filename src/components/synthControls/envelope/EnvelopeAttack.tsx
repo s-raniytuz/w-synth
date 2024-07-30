@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useSynthContext } from "@/context/synthContext";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { EnvelopeCurve } from "tone";
 import Knob from "@/components/custom-ui/knob/Knob";
 
@@ -16,23 +16,23 @@ export default function EnvelopeAttack() {
   const synth = useSynthContext();
 
   const [attackState, setAttackState] = useState<{
-    attack: string;
+    attack: string | number;
     attackCurve: EnvelopeCurve;
   }>({
     attack: synth.get().envelope.attack.toString(),
     attackCurve: synth.get().envelope.attackCurve.toString() as EnvelopeCurve,
   });
 
-  function handleAttackChange(e: ChangeEvent) {
+  function handleAttackChange(value: number) {
     synth.set({
       envelope: {
-        attack: (e.target as HTMLInputElement).value,
+        attack: value,
       },
     });
     setAttackState((prev) => {
       return {
         ...prev,
-        attack: (e.target as HTMLInputElement).value,
+        attack: value,
       };
     });
   }
@@ -52,23 +52,21 @@ export default function EnvelopeAttack() {
   }
 
   return (
-    <div className="envelope-attack flex h-full w-full flex-col items-center justify-between py-4">
+    <div className="envelope-attack flex h-full w-full flex-col items-center justify-between py-3">
       <p
         onDragStart={(e) => e.preventDefault()}
-        className="cursor-default select-none font-subjectivity text-sm font-medium text-slate-800"
+        className="text-centauri-black font-nohemi cursor-default select-none text-[0.8rem] font-medium opacity-85"
       >
         Attack
       </p>
-      {/* <input
-        type="range"
-        name="attack"
+
+      <Knob
         min={0}
-        max={10}
-        step={0.01}
-        value={attackState.attack}
+        max={5}
+        initValue={attackState.attack}
         onChange={handleAttackChange}
-      /> */}
-      <Knob className="h-11 w-11" />
+        className="bg-centauriBlack h-11 w-11"
+      />
 
       <Select
         value={attackState.attackCurve.toString()}
@@ -76,7 +74,8 @@ export default function EnvelopeAttack() {
       >
         <SelectTrigger
           onDragStart={(e) => e.preventDefault()}
-          className="h-1 w-[50px] select-none text-[12px]"
+          className="bg-centauri-black flex h-6 w-[4rem] select-none items-center justify-center rounded text-xs opacity-85"
+          showIcon={false}
         >
           <SelectValue />
         </SelectTrigger>
