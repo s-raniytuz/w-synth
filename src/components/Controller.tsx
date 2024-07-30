@@ -4,7 +4,6 @@ import {
 } from "keyboard-midi-controller";
 import { useSynthContext } from "../context/synthContext";
 import Gain from "./effects/Gain";
-import WaveformSelector from "./WaveformSelector";
 import EnvelopeSelector from "./EnvelopeSelector";
 import { ControllerContext } from "../context/controllerContext";
 import SynthMainControlsContainer from "./SynthMainControlsContainer";
@@ -40,11 +39,11 @@ export default function Controller({ synthId }: { synthId: 1 | 2 }) {
             <EnvelopeSelector />
           </div>
 
-          <div className="main-selector-container col-span-2 row-start-1 row-end-10 rounded bg-black bg-opacity-10"></div>
+          <div className="main-selector-container col-span-2 row-start-1 row-end-10 rounded bg-black bg-opacity-10 py-2">
+            <SynthMainControlsContainer />
+          </div>
 
           <div className="lfo-container col-span-7 row-span-5 rounded bg-black bg-opacity-10"></div>
-          {/* <EnvelopeSelector />
-          <SynthMainControlsContainer /> */}
         </div>
 
         <Gain prevAudioNode={synth} payload={0.01} />

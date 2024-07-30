@@ -25,14 +25,13 @@ export default function Knob({
   onChange?: (value: number) => void;
 }) {
   const inputref = useRef<null | HTMLDivElement>(null);
+  const initDegreeRef = useRef<number>(
+    percentToDegree(valueToPercent(min, max, Number(initValue))),
+  );
 
   let degree = percentToDegree(valueToPercent(min, max, Number(initValue)));
   let prevDelta: number = 0;
   let mousepos: number;
-
-  const initialRotation = percentToDegree(
-    valueToPercent(min, max, Number(initValue)),
-  );
 
   // let knobClassName: string;
   // if (className) {
@@ -46,9 +45,9 @@ export default function Knob({
   */
   useEffect(() => {
     (inputref.current as HTMLDivElement).style.transform = `rotate(${
-      initialRotation + DEFAULT_KNOB_OFFSET
+      initDegreeRef.current + DEFAULT_KNOB_OFFSET
     }deg)`;
-  }, [initialRotation]);
+  }, []);
 
   /*
   | Assings event listeners to the degree calculating function
@@ -132,15 +131,15 @@ export default function Knob({
     <div className="knob-wrapper relative">
       <div
         onMouseDown={handleInitializePositionTracker}
-        onDoubleClick={() => propagatePosition(initValue)}
+        onDoubleClick={() => propagatePosition(initDegreeRef.current)}
         onDragStart={(e) => e.preventDefault()}
         draggable="false"
         ref={inputref}
         className={`${className} knob`}
       ></div>
-      <div className="min-position bg-centauri-black absolute -left-[0rem] bottom-[0.08rem] h-[0.12rem] w-[0.3rem] -rotate-45 opacity-50"></div>
-      <div className="max-position bg-centauri-black absolute -right-[0rem] bottom-[0.08rem] h-[0.12rem] w-[0.3rem] rotate-45 opacity-50"></div>
-      <div className="middle-position bg-centauri-black absolute -top-[0.4rem] h-[0.12rem] w-[0.3rem] translate-x-5 rotate-90 opacity-50"></div>
+      <div className="min-position bg-centauri-black absolute bottom-[3%] h-[4%] w-[11%] -rotate-45 opacity-50"></div>
+      <div className="max-position bg-centauri-black absolute -right-[0%] bottom-[3%] h-[4%] w-[11%] rotate-45 opacity-50"></div>
+      <div className="middle-position bg-centauri-black absolute -top-[15%] h-[4%] w-[11%] translate-x-[410%] rotate-90 opacity-50"></div>
     </div>
   );
 }
