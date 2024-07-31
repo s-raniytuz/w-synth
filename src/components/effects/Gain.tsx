@@ -1,14 +1,15 @@
 import * as Tone from "tone";
 import Limiter from "./Limiter";
+import { AudioNodeType } from "@/types";
 
 export default function Gain({
   prevAudioNode,
-  payload,
+  payload = 0.01,
 }: {
-  prevAudioNode: Tone.PolySynth;
-  payload: number;
+  prevAudioNode: AudioNodeType;
+  payload?: number;
 }) {
   const gain = new Tone.Gain(payload);
   prevAudioNode.connect(gain);
-  return <Limiter prevAudioNode={gain} payload={-3} />;
+  return <Limiter prevAudioNode={gain} />;
 }

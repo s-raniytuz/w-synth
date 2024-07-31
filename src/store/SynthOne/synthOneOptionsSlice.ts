@@ -22,7 +22,7 @@ const initialSynthState: SynthOptionsType = {
   },
   volume: 30,
   detune: 0,
-  portamento: 0,
+  portamento: 0.8,
 };
 
 const synthOneOptionsSlice = createSlice({

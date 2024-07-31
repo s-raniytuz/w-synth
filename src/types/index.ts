@@ -1,4 +1,4 @@
-import { EnvelopeCurve } from "tone";
+import * as Tone from "tone";
 
 /*
 |
@@ -24,9 +24,9 @@ export interface BaseEnvelopeType<T> {
 }
 
 export interface ExtendedEnvelopeType<T> extends BaseEnvelopeType<T> {
-  attackCurve: EnvelopeCurve;
+  attackCurve: Tone.EnvelopeCurve;
   decayCurve: "linear" | "exponential";
-  releaseCurve: EnvelopeCurve;
+  releaseCurve: Tone.EnvelopeCurve;
 }
 
 export type BaseEnvelopePropsType = "attack" | "decay" | "sustain" | "release";
@@ -74,3 +74,15 @@ export interface EffectRackInitialStateType {
   type: string;
   options: object;
 }
+
+/*
+|
+| Audio Node connect types
+|
+*/
+
+type ControlNodeType = Tone.Channel;
+
+type EffectNodeType = Tone.Gain | Tone.Limiter;
+
+export type AudioNodeType = EffectNodeType | ControlNodeType;

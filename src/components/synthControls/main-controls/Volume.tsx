@@ -1,6 +1,6 @@
-import { useSynthContext } from "../../context/synthContext";
+import { useSynthContext } from "../../../context/synthContext";
 import { useState } from "react";
-import Knob from "../custom-ui/knob/Knob";
+import Knob from "../../custom-ui/knob/Knob";
 
 export default function Volume() {
   const synth = useSynthContext();
@@ -23,7 +23,7 @@ export default function Volume() {
     <div className="volume flex w-full flex-col items-center gap-3">
       <p
         onDragStart={(e) => e.preventDefault()}
-        className="text-centauri-black font-nohemi cursor-default select-none text-[0.8rem] font-medium opacity-85"
+        className="cursor-default select-none font-nohemi text-[0.7rem] font-medium text-centauri-black opacity-85"
       >
         Volume
       </p>
@@ -41,7 +41,7 @@ export default function Volume() {
         max={35}
         initValue={volumeState}
         onChange={handleVolumeChange}
-        className="bg-centauriBlack h-11 w-11"
+        className="bg-centauriBlack h-8 w-8"
       />
     </div>
   );
