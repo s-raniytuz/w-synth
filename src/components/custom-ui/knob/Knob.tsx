@@ -135,11 +135,11 @@ export default function Knob({
         onDragStart={(e) => e.preventDefault()}
         draggable="false"
         ref={inputref}
-        className={`${className} knob`}
+        className={`${className} knob cursor-grab`}
       ></div>
-      <div className="min-position bg-centauri-black absolute bottom-[3%] h-[4%] w-[11%] -rotate-45 opacity-50"></div>
-      <div className="max-position bg-centauri-black absolute -right-[0%] bottom-[3%] h-[4%] w-[11%] rotate-45 opacity-50"></div>
-      <div className="middle-position bg-centauri-black absolute -top-[15%] h-[4%] w-[11%] translate-x-[410%] rotate-90 opacity-50"></div>
+      <div className="min-position absolute bottom-[3%] h-[4%] w-[11%] -rotate-45 bg-centauri-black opacity-50"></div>
+      <div className="max-position absolute -right-[0%] bottom-[3%] h-[4%] w-[11%] rotate-45 bg-centauri-black opacity-50"></div>
+      <div className="middle-position absolute -top-[15%] h-[4%] w-[11%] translate-x-[410%] rotate-90 bg-centauri-black opacity-50"></div>
     </div>
   );
 }

@@ -83,6 +83,6 @@ export interface EffectRackInitialStateType {
 
 type ControlNodeType = Tone.Channel;
 
-type EffectNodeType = Tone.Gain | Tone.Limiter;
+type EffectNodeType = Tone.Gain | Tone.Limiter | Tone.PitchShift;
 
 export type AudioNodeType = EffectNodeType | ControlNodeType;

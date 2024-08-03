@@ -2,7 +2,9 @@ import * as Tone from "tone";
 import GlobalSynthRack from "./components/GlobalSynthRack";
 import Header from "./components/custom-ui/Header";
 
-Tone.start();
+document.addEventListener("click", async () => {
+  await Tone.start();
+});
 
 function App() {
   return (

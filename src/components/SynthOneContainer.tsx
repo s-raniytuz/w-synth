@@ -5,6 +5,7 @@ import { SynthChannelContext } from "@/context/SynthChannelContext";
 import Controller from "./Controller";
 import SynthVisualContainer from "./custom-ui/SynthVisualContainer";
 import Channel from "./control-nodes/Channel";
+import DefaultNodeInitializer from "./control-nodes/DefaultNodeInitializer";
 
 export default function SynthOneContainer() {
   const synthOptions = useAppSelector((state) => state.synthOneOptions);
@@ -15,10 +16,12 @@ export default function SynthOneContainer() {
   return (
     <SynthChannelContext.Provider value={synthChannel}>
       <SynthContext.Provider value={synth}>
-        <Controller synthId={1}>
-          <SynthVisualContainer />
-          <Channel />
-        </Controller>
+        <DefaultNodeInitializer>
+          <Controller synthId={1}>
+            <SynthVisualContainer />
+            <Channel />
+          </Controller>
+        </DefaultNodeInitializer>
       </SynthContext.Provider>
     </SynthChannelContext.Provider>
   );
