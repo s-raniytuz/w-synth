@@ -20,7 +20,7 @@ const initialSynthState: SynthOptionsType = {
     decayCurve: "exponential",
     releaseCurve: "exponential",
   },
-  volume: 30,
+  // volume: 30,
   detune: 0,
   portamento: 0.8,
 };

@@ -13,6 +13,8 @@ export default function SynthOneContainer() {
   const synth = new Tone.PolySynth(Tone.Synth, synthOptions);
   const synthChannel = new Tone.Channel();
 
+  synth.volume.value = 30;
+
   return (
     <SynthChannelContext.Provider value={synthChannel}>
       <SynthContext.Provider value={synth}>

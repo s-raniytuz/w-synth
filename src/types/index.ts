@@ -86,3 +86,11 @@ type ControlNodeType = Tone.Channel;
 type EffectNodeType = Tone.Gain | Tone.Limiter | Tone.PitchShift;
 
 export type AudioNodeType = EffectNodeType | ControlNodeType;
+
+/*
+|
+| LFO types
+|
+*/
+
+export type LinkedNode = "volume" | "pan";

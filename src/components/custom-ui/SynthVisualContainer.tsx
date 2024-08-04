@@ -1,4 +1,5 @@
 import EnvelopeSelector from "../EnvelopeSelector";
+import LFOContainer from "../synthControls/lfo/LFOContainer";
 import SynthMainControlsContainer from "../SynthMainControlsContainer";
 import WaveformDisplay from "./WaveformDisplay";
 
@@ -21,7 +22,9 @@ export default function SynthVisualContainer() {
           <SynthMainControlsContainer />
         </div>
 
-        <div className="lfo-container col-span-7 row-span-5 rounded bg-black bg-opacity-10"></div>
+        <div className="lfo-container col-span-7 row-span-5 rounded bg-black bg-opacity-10">
+          <LFOContainer />
+        </div>
       </div>
     </div>
   );

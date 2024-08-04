@@ -1,14 +1,17 @@
 import PositionSlider from "@/components/custom-ui/slider/PositionSlider";
 import { useControllerContext } from "@/context/controllerContext";
+import { useSynthContext } from "@/context/synthContext";
 import { useState } from "react";
 
 export default function PitchShifter() {
   const controller = useControllerContext();
+  const synth = useSynthContext();
   const [pitchState, setPitchState] = useState<number>(
     controller.firstOctave - 4,
   );
 
   function handlePitchChange(value: number) {
+    synth.releaseAll();
     controller.firstOctave = 4 + value;
     controller.secondOctave = 5 + value;
     setPitchState(value);

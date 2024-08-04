@@ -1,20 +1,22 @@
 import { useSynthContext } from "../../../context/synthContext";
 import { useState } from "react";
 import Knob from "../../custom-ui/knob/Knob";
+import { useAppDispatch } from "@/store/hooks";
+import { volumeActions } from "@/store";
 
 export default function Volume() {
+  const dispatch = useAppDispatch();
+
   const synth = useSynthContext();
-  const [volumeState, setVolumeState] = useState<number>(synth.get().volume);
+  const [volumeState, setVolumeState] = useState<number>(synth.volume.value);
 
   function handleVolumeChange(value: number) {
     if (value === 0) {
-      synth.set({
-        volume: -1000,
-      });
+      synth.volume.value = -100;
+      dispatch(volumeActions.setVolumeState(-100));
     } else {
-      synth.set({
-        volume: value,
-      });
+      synth.volume.value = value;
+      dispatch(volumeActions.setVolumeState(value));
     }
     setVolumeState(value);
   }
@@ -27,14 +29,6 @@ export default function Volume() {
       >
         Volume
       </p>
-      {/* <input
-        type="range"
-        name="volume"
-        min={0}
-        max={35}
-        value={synth.get().volume}
-        onChange={handleVolumeChange}
-      /> */}
 
       <Knob
         min={0}
