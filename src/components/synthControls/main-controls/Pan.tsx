@@ -1,18 +1,18 @@
 import { useSynthChannelContext } from "@/context/SynthChannelContext";
-import { useState } from "react";
 import Knob from "@/components/custom-ui/knob/Knob";
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { PAN_DEFAULT } from "@/localStorage/localStorageDefaults";
 import useMountEffect from "@/hooks/useMountEffect";
+import { synthOnePanActions } from "@/store";
 
 export default function Pan() {
+  const dispatch = useAppDispatch();
+  const pan = useAppSelector((state) => state.synthOnePan.pan);
   const channel = useSynthChannelContext();
-  const initialPan = useAppSelector((state) => state.synthOnePan.pan);
-  const [panState, setPanState] = useState(initialPan);
 
   useMountEffect(() => {
     channel.set({
-      pan: initialPan,
+      pan: pan,
     });
   });
 
@@ -20,7 +20,9 @@ export default function Pan() {
     channel.set({
       pan: value,
     });
-    setPanState(value);
+
+    dispatch(synthOnePanActions.setPanState(value));
+
     if (value !== PAN_DEFAULT) {
       localStorage.setItem("synthOnePan", JSON.stringify(value));
     } else {
@@ -40,7 +42,7 @@ export default function Pan() {
       <Knob
         min={-1}
         max={1}
-        initValue={panState}
+        initValue={pan}
         defaultValue={PAN_DEFAULT}
         onChange={handlePanChange}
         className="bg-centauriBlack h-8 w-8"

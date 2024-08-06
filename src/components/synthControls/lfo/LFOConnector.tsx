@@ -23,7 +23,6 @@ export default function LFOConnector({
 
   lfo.stop();
   lfo.disconnect();
-  // synth.volume.value = volume;
 
   if (linkedNodeState === "volume") {
     lfo.min = -1000;

@@ -1,5 +1,6 @@
 import PositionSlider from "@/components/custom-ui/slider/PositionSlider";
 import { useSynthContext } from "@/context/synthContext";
+import { DETUNE_DEFAULT } from "@/localStorage/localStorageDefaults";
 import { useState } from "react";
 
 export default function Detune() {
@@ -26,6 +27,7 @@ export default function Detune() {
         className="w-[50%] rounded bg-centauri-black opacity-95"
         min={-100}
         max={100}
+        defaultValue={DETUNE_DEFAULT}
         initValue={detuneState}
         onChange={handleDetuneChange}
       />

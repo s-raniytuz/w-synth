@@ -11,6 +11,7 @@ export default function PositionSlider({
   min = 0,
   max = 10,
   initValue = 0,
+  defaultValue,
   className,
   speed = 1,
   onChange = () => {},
@@ -18,15 +19,16 @@ export default function PositionSlider({
   min?: number;
   max?: number;
   initValue?: number;
+  defaultValue: number;
   className?: string;
   speed?: number;
   onChange?: (value: number) => void;
 }) {
   const inputref = useRef<null | HTMLDivElement>(null);
   const degree = useRef(percentToDegree(valueToPercent(min, max, initValue)));
-  const initPosition = useRef(
-    percentToDegree(valueToPercent(min, max, initValue)),
-  );
+  // const initPosition = useRef(
+  //   percentToDegree(valueToPercent(min, max, initValue)),
+  // );
   const [sliderState, setSliderState] = useState(initValue);
 
   let prevDelta: number = 0;
@@ -114,7 +116,11 @@ export default function PositionSlider({
   return (
     <div
       onMouseDown={handleInitializePositionTracker}
-      onDoubleClick={() => propagatePosition(initPosition.current)}
+      onDoubleClick={() =>
+        propagatePosition(
+          percentToDegree(valueToPercent(min, max, defaultValue)),
+        )
+      }
       onDragStart={(e) => e.preventDefault()}
       draggable="false"
       ref={inputref}
