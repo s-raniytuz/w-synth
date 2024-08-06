@@ -26,6 +26,7 @@ export default function LFOAmplitude() {
         min={0}
         max={1}
         initValue={amplitudeState}
+        defaultValue={1}
         onChange={handleAmplitudeChange}
         className="bg-centauriBlack h-[1.85rem] w-[1.85rem]"
       />

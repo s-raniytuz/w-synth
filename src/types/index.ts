@@ -45,8 +45,6 @@ export type ExtendedEnvelopePropsType =
 
 export interface OscillatorType {
   type: BaseWaveformType | ExtendedWaveformType;
-  mute: boolean;
-  phase: number;
 }
 
 /*
@@ -58,9 +56,14 @@ export interface OscillatorType {
 export interface SynthOptionsType {
   oscillator: OscillatorType;
   envelope: ExtendedEnvelopeType<number>;
-  volume: number;
   detune: number;
-  portamento: number;
+}
+
+export interface MainControlsType<T> {
+  volume: T;
+  pan: T;
+  detune: T;
+  pitch: T;
 }
 
 /*
@@ -94,3 +97,24 @@ export type AudioNodeType = EffectNodeType | ControlNodeType;
 */
 
 export type LinkedNode = "volume" | "pan";
+
+export interface LFOType {
+  waveform: BaseWaveformType;
+  link: LinkedNode;
+  amplitude: number;
+}
+
+/*
+|
+| Local Storage types
+|
+*/
+
+export type LocalStorageType = {
+  synth1: {
+    waveform: BaseWaveformType;
+    envelope: ExtendedEnvelopeType<number>;
+    mainControls: MainControlsType<number>;
+    lfo: LFOType;
+  };
+};

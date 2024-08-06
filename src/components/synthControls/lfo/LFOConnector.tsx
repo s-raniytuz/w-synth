@@ -16,14 +16,14 @@ export default function LFOConnector({
   const synth = useSynthContext();
   const channel = useSynthChannelContext();
 
-  const volume = useAppSelector((state) => state.volumeState.volume);
+  const volume = useAppSelector((state) => state.synthOneVolume.volume);
 
   const [linkedNodeState, setLinkedNodeState] =
     useState<LinkedNode>(linkedNode);
 
   lfo.stop();
   lfo.disconnect();
-  synth.volume.value = volume;
+  // synth.volume.value = volume;
 
   if (linkedNodeState === "volume") {
     lfo.min = -1000;

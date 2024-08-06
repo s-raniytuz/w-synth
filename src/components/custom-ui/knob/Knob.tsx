@@ -13,6 +13,7 @@ export default function Knob({
   min = 0,
   max = 10,
   initValue = 5,
+  defaultValue,
   className,
   speed = 1,
   onChange = () => {},
@@ -20,6 +21,7 @@ export default function Knob({
   min?: number;
   max?: number;
   initValue?: number | string;
+  defaultValue: number;
   className?: string;
   speed?: number;
   onChange?: (value: number) => void;
@@ -131,7 +133,11 @@ export default function Knob({
     <div className="knob-wrapper relative">
       <div
         onMouseDown={handleInitializePositionTracker}
-        onDoubleClick={() => propagatePosition(initDegreeRef.current)}
+        onDoubleClick={() =>
+          propagatePosition(
+            percentToDegree(valueToPercent(min, max, Number(defaultValue))),
+          )
+        }
         onDragStart={(e) => e.preventDefault()}
         draggable="false"
         ref={inputref}

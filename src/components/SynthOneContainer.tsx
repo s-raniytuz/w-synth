@@ -9,11 +9,12 @@ import DefaultNodeInitializer from "./control-nodes/DefaultNodeInitializer";
 
 export default function SynthOneContainer() {
   const synthOptions = useAppSelector((state) => state.synthOneOptions);
+  // const volume = useAppSelector((state) => state.synthOneVolume.volume);
 
   const synth = new Tone.PolySynth(Tone.Synth, synthOptions);
   const synthChannel = new Tone.Channel();
 
-  synth.volume.value = 30;
+  // synth.volume.value = Number(localStorage.getItem("synthOneVolume")) || 30;
 
   return (
     <SynthChannelContext.Provider value={synthChannel}>

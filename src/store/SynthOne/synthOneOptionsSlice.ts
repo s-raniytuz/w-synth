@@ -8,8 +8,6 @@ import {
 const initialSynthState: SynthOptionsType = {
   oscillator: {
     type: "sine",
-    mute: false,
-    phase: 0,
   },
   envelope: {
     attack: 0.01,
@@ -20,9 +18,7 @@ const initialSynthState: SynthOptionsType = {
     decayCurve: "exponential",
     releaseCurve: "exponential",
   },
-  // volume: 30,
   detune: 0,
-  portamento: 0.8,
 };
 
 const synthOneOptionsSlice = createSlice({

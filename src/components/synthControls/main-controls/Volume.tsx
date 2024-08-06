@@ -1,24 +1,36 @@
 import { useSynthContext } from "../../../context/synthContext";
-import { useState } from "react";
 import Knob from "../../custom-ui/knob/Knob";
-import { useAppDispatch } from "@/store/hooks";
-import { volumeActions } from "@/store";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { synthOneVolumeActions } from "@/store";
+import { VOLUME_DEFAULT } from "@/localStorage/localStorageDefaults";
+import useMountEffect from "@/hooks/useMountEffect";
 
 export default function Volume() {
   const dispatch = useAppDispatch();
+  const volume = useAppSelector((state) => state.synthOneVolume.volume);
 
   const synth = useSynthContext();
-  const [volumeState, setVolumeState] = useState<number>(synth.volume.value);
+
+  useMountEffect(() => {
+    synth.volume.value = volume;
+  });
 
   function handleVolumeChange(value: number) {
-    if (value === 0) {
+    const roundedValue = Math.round(value);
+
+    if (roundedValue === 0) {
       synth.volume.value = -100;
-      dispatch(volumeActions.setVolumeState(-100));
+      dispatch(synthOneVolumeActions.setVolumeState(-100));
     } else {
-      synth.volume.value = value;
-      dispatch(volumeActions.setVolumeState(value));
+      synth.volume.value = roundedValue;
+      dispatch(synthOneVolumeActions.setVolumeState(roundedValue));
     }
-    setVolumeState(value);
+
+    if (roundedValue !== VOLUME_DEFAULT) {
+      localStorage.setItem("synthOneVolume", JSON.stringify(roundedValue));
+    } else {
+      localStorage.removeItem("synthOneVolume");
+    }
   }
 
   return (
@@ -33,7 +45,8 @@ export default function Volume() {
       <Knob
         min={0}
         max={35}
-        initValue={volumeState}
+        initValue={volume === -100 ? 0 : volume}
+        defaultValue={VOLUME_DEFAULT}
         onChange={handleVolumeChange}
         className="bg-centauriBlack h-8 w-8"
       />
