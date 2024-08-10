@@ -5,11 +5,29 @@ import { SynthChannelContext } from "@/context/SynthChannelContext";
 import Controller from "./Controller";
 import SynthVisualContainer from "./custom-ui/SynthVisualContainer";
 import Channel from "./control-nodes/Channel";
+import { ExtendedWaveformType } from "@/types";
 
 export default function SynthOneContainer() {
-  const synthOptions = useAppSelector((state) => state.synthOneOptions);
+  const envelope = useAppSelector(
+    (state) => state.synthOneEnvelope,
+    () => true,
+  );
+  const detune: number = useAppSelector(
+    (state) => state.synthOneDetune.detune,
+    () => true,
+  );
+  const waveform: ExtendedWaveformType = useAppSelector(
+    (state) => state.synthOneWaveform.type,
+    () => true,
+  );
 
-  const synth = new Tone.PolySynth(Tone.Synth, synthOptions);
+  const synth = new Tone.PolySynth(Tone.Synth, {
+    oscillator: {
+      type: waveform,
+    },
+    ...envelope,
+    detune: detune,
+  });
   const synthChannel = new Tone.Channel();
 
   return (

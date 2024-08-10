@@ -1,17 +1,32 @@
 import PositionSlider from "@/components/custom-ui/slider/PositionSlider";
 import { useSynthContext } from "@/context/synthContext";
+import useMountEffect from "@/hooks/useMountEffect";
 import { DETUNE_DEFAULT } from "@/localStorage/localStorageDefaults";
-import { useState } from "react";
+import { synthOneDetuneActions } from "@/store";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 export default function Detune() {
+  const dispatch = useAppDispatch();
   const synth = useSynthContext();
-  const [detuneState, setDetuneState] = useState<number>(synth.get().detune);
+  // const detune = useAppSelector((state) => state.synthOneOptions.detune);
+  const detune = useAppSelector((state) => state.synthOneDetune.detune);
+
+  useMountEffect(() => {
+    synth.set({
+      detune: detune,
+    });
+  });
 
   function handleDetuneChange(value: number) {
     synth.set({
       detune: value,
     });
-    setDetuneState(value);
+    dispatch(synthOneDetuneActions.setDetune(value));
+    if (value !== DETUNE_DEFAULT) {
+      localStorage.setItem("synthOneDetune", JSON.stringify(value));
+    } else {
+      localStorage.removeItem("synthOneDetune");
+    }
   }
 
   return (
@@ -28,7 +43,7 @@ export default function Detune() {
         min={-100}
         max={100}
         defaultValue={DETUNE_DEFAULT}
-        initValue={detuneState}
+        initValue={detune}
         onChange={handleDetuneChange}
       />
     </div>

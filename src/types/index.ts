@@ -16,6 +16,8 @@ export type ExtendedWaveformType = BaseWaveformType | "pulse" | "pwm";
 |
 */
 
+export type DecayCurve = "linear" | "exponential";
+
 export interface BaseEnvelopeType<T> {
   attack: T;
   decay: T;
@@ -25,7 +27,7 @@ export interface BaseEnvelopeType<T> {
 
 export interface ExtendedEnvelopeType<T> extends BaseEnvelopeType<T> {
   attackCurve: Tone.EnvelopeCurve;
-  decayCurve: "linear" | "exponential";
+  decayCurve: DecayCurve;
   releaseCurve: Tone.EnvelopeCurve;
 }
 

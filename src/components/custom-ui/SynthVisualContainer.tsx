@@ -23,7 +23,7 @@ export default function SynthVisualContainer() {
         </div>
 
         <div className="lfo-container col-span-7 row-span-5 rounded bg-black bg-opacity-10">
-          <LFOContainer />
+          {/* <LFOContainer /> */}
         </div>
       </div>
     </div>

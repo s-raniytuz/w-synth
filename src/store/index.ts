@@ -4,20 +4,35 @@ import { synthOneEffectRackSlice } from "./SynthOne/synthOneEffectRackSlice";
 import { synthOneVolumeSlice, synthTwoVolumeSlice } from "./params/volumeSlice";
 import { SynthOnePanSlice, SynthTwoPanSlice } from "./params/panSlice";
 import { synthOnePitchSlice, synthTwoPitchSlice } from "./params/pitchSlice";
+import { synthOneDetuneSlice, synthTwoDetuneSlice } from "./params/detuneSlice";
+import {
+  synthOneEnvelopeSlice,
+  synthTwoEnvelopeSlice,
+} from "./params/envelopeSlice";
+import {
+  synthOneWaveformSlice,
+  synthTwoWaveformSlice,
+} from "./params/waveformSlice";
 
 const store = configureStore({
   reducer: {
     //SYNTH 1
-    synthOneOptions: synthOneOptionsSlice.reducer,
+    // synthOneOptions: synthOneOptionsSlice.reducer,
     synthOneEffectRack: synthOneEffectRackSlice.reducer,
     synthOneVolume: synthOneVolumeSlice.reducer,
     synthOnePan: SynthOnePanSlice.reducer,
     synthOnePitch: synthOnePitchSlice.reducer,
+    synthOneDetune: synthOneDetuneSlice.reducer,
+    synthOneWaveform: synthOneWaveformSlice.reducer,
+    synthOneEnvelope: synthOneEnvelopeSlice.reducer,
 
     // SYNTH 2
     synthTwoVolume: synthTwoVolumeSlice.reducer,
     synthTwoPan: SynthTwoPanSlice.reducer,
     synthTwoPitch: synthTwoPitchSlice.reducer,
+    synthTwoDetune: synthTwoDetuneSlice.reducer,
+    synthTwoWaveform: synthTwoWaveformSlice.reducer,
+    synthTwoEnvelopeSlice: synthTwoEnvelopeSlice.reducer,
   },
 });
 
@@ -27,11 +42,17 @@ export const synthOneEffectRackActions = synthOneEffectRackSlice.actions;
 export const synthOneVolumeActions = synthOneVolumeSlice.actions;
 export const synthOnePanActions = SynthOnePanSlice.actions;
 export const synthOnePitchActions = synthOnePitchSlice.actions;
+export const synthOneDetuneActions = synthOneDetuneSlice.actions;
+export const synthOneWaveformActions = synthOneWaveformSlice.actions;
+export const synthOneEnvelopeActions = synthOneEnvelopeSlice.actions;
 
 // SYNTH 2
 export const synthTwoVolumeActions = synthTwoVolumeSlice.actions;
 export const synthTwoPanActions = SynthTwoPanSlice.actions;
 export const synthTwoPitchActions = synthTwoPitchSlice.actions;
+export const synthTwoDetuneActions = synthTwoDetuneSlice.actions;
+export const synthTwoWaveformActions = synthTwoWaveformSlice.actions;
+export const synthTwoEnvelopeActions = synthTwoEnvelopeSlice.actions;
 
 export { store };
 

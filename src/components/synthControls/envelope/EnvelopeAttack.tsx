@@ -8,19 +8,31 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useSynthContext } from "@/context/synthContext";
-import { useState } from "react";
 import { EnvelopeCurve } from "tone";
 import Knob from "@/components/custom-ui/knob/Knob";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { synthOneEnvelopeActions } from "@/store";
+import {
+  ATTACK_CURVE_DEFAULT,
+  ATTACK_DEFAULT,
+} from "@/localStorage/localStorageDefaults";
+import useMountEffect from "@/hooks/useMountEffect";
 
 export default function EnvelopeAttack() {
+  const dispatch = useAppDispatch();
+  const attack = useAppSelector((state) => state.synthOneEnvelope.attack);
+  const attackCurve = useAppSelector(
+    (state) => state.synthOneEnvelope.attackCurve,
+  );
   const synth = useSynthContext();
 
-  const [attackState, setAttackState] = useState<{
-    attack: string | number;
-    attackCurve: EnvelopeCurve;
-  }>({
-    attack: synth.get().envelope.attack.toString(),
-    attackCurve: synth.get().envelope.attackCurve.toString() as EnvelopeCurve,
+  useMountEffect(() => {
+    synth.set({
+      envelope: {
+        attack: attack,
+        attackCurve: attackCurve,
+      },
+    });
   });
 
   function handleAttackChange(value: number) {
@@ -29,12 +41,12 @@ export default function EnvelopeAttack() {
         attack: value,
       },
     });
-    setAttackState((prev) => {
-      return {
-        ...prev,
-        attack: value,
-      };
-    });
+    dispatch(synthOneEnvelopeActions.setAttack(value));
+    if (value !== ATTACK_DEFAULT) {
+      localStorage.setItem("synthOneAttack", JSON.stringify(value));
+    } else {
+      localStorage.removeItem("synthOneAttack");
+    }
   }
 
   function handleAttackCurveChange(value: string) {
@@ -43,38 +55,39 @@ export default function EnvelopeAttack() {
         attackCurve: value as EnvelopeCurve,
       },
     });
-    setAttackState((prev) => {
-      return {
-        ...prev,
-        attackCurve: value as EnvelopeCurve,
-      };
-    });
+    dispatch(synthOneEnvelopeActions.setAttackCurve(value as EnvelopeCurve));
+    if (value !== ATTACK_CURVE_DEFAULT) {
+      localStorage.setItem("synthOneAttackCurve", value);
+    } else {
+      localStorage.removeItem("synthOneAttackCurve");
+    }
   }
 
   return (
     <div className="envelope-attack flex h-full w-full flex-col items-center justify-between py-3">
       <p
         onDragStart={(e) => e.preventDefault()}
-        className="text-centauri-black font-nohemi cursor-default select-none text-[0.8rem] font-medium opacity-85"
+        className="cursor-default select-none font-nohemi text-[0.8rem] font-medium text-centauri-black opacity-85"
       >
         Attack
       </p>
 
       <Knob
         min={0}
-        max={5}
-        initValue={attackState.attack}
+        max={10}
+        initValue={attack}
         onChange={handleAttackChange}
+        defaultValue={ATTACK_DEFAULT}
         className="bg-centauriBlack h-11 w-11"
       />
 
       <Select
-        value={attackState.attackCurve.toString()}
+        value={attackCurve.toString()}
         onValueChange={handleAttackCurveChange}
       >
         <SelectTrigger
           onDragStart={(e) => e.preventDefault()}
-          className="bg-centauri-black flex h-6 w-[4rem] select-none items-center justify-center rounded text-xs opacity-85"
+          className="flex h-6 w-[4rem] select-none items-center justify-center rounded bg-centauri-black text-xs opacity-85"
           showIcon={false}
         >
           <SelectValue />
