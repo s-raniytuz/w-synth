@@ -1,6 +1,7 @@
 import { useAppSelector } from "@/store/hooks";
 import WaveformSelector from "../WaveformSelector";
 import { cn } from "@/lib/utils";
+import Mute from "../synthControls/main-controls/Mute";
 
 export default function WaveformDisplay() {
   const waveform = useAppSelector((state) => state.synthOneWaveform.type);
@@ -34,7 +35,7 @@ export default function WaveformDisplay() {
   return (
     <div className="waveform-display h-full w-full rounded-xl bg-centauri-black">
       <div className="waveform-display-selector mt-px flex h-[13%] w-full items-center justify-between px-4">
-        <div className="synth-switch h-[1rem] w-[1rem] rounded-[50%] bg-white"></div>
+        <Mute />
         <WaveformSelector synthId={1} className="w-[12rem]" />
         <div className="synth-switch h-[1rem] w-[1rem] rounded-[50%] bg-white opacity-0"></div>
       </div>
