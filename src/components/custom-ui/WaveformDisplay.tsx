@@ -5,7 +5,7 @@ import Mute from "../synthControls/main-controls/Mute";
 
 export default function WaveformDisplay() {
   const waveform = useAppSelector((state) => state.synthOneWaveform.type);
-  const staticImageClassName = "waveform-image h-[87%] w-full";
+  const staticImageClassName = "waveform-image h-[87%] w-full rounded-xl";
   let imageClassName;
 
   switch (waveform) {

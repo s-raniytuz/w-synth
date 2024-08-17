@@ -1,3 +1,5 @@
+export const WAVEFORM_DEFAULT = "sine";
+
 export const VOLUME_DEFAULT = 30;
 export const PAN_DEFAULT = 0;
 export const PITCH_DEFAULT = 0;
@@ -13,3 +15,7 @@ export const SUSTAIN_DEFAULT = 0;
 
 export const RELEASE_DEFAULT = 1;
 export const RELEASE_CURVE_DEFAULT = "exponential";
+
+export const LFO_AMPLITUDE_DEFAULT = 0.5;
+export const LFO_LINK_DEFAULT = "volume";
+export const LFO_WAVEFORM_DEFAULT = "sine";

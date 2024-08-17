@@ -1,12 +1,17 @@
+import { evaluateLocalStorage } from "@/functions/evaluateLocalStorage";
+import { WAVEFORM_DEFAULT } from "@/localStorage/localStorageDefaults";
 import { ExtendedWaveformType } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const synthOneTypeInit: ExtendedWaveformType =
-  (localStorage.getItem("synthOneWaveform") as ExtendedWaveformType) || "sine";
+const synthOneTypeInit: ExtendedWaveformType = evaluateLocalStorage(
+  "synthOneWaveform",
+  WAVEFORM_DEFAULT,
+) as ExtendedWaveformType;
 
-const synthTwoTypeInit: ExtendedWaveformType =
-  (localStorage.getItem("synthTwoWaveformType") as ExtendedWaveformType) ||
-  "sine";
+const synthTwoTypeInit: ExtendedWaveformType = evaluateLocalStorage(
+  "synthTwoWaveform",
+  WAVEFORM_DEFAULT,
+) as ExtendedWaveformType;
 
 const synthOneWaveformSlice = createSlice({
   name: "synthOneWaveform",

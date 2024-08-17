@@ -1,11 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { VOLUME_DEFAULT } from "@/localStorage/localStorageDefaults";
+import { evaluateLocalStorage } from "@/functions/evaluateLocalStorage";
 
-const synthOneVolumeInitial =
-  Number(localStorage.getItem("synthOneVolume")) || VOLUME_DEFAULT;
+const synthOneVolumeInitial = evaluateLocalStorage(
+  "synthOneVolume",
+  VOLUME_DEFAULT,
+);
 
-const synthTwoVolumeInitial =
-  Number(localStorage.getItem("synthTwoVolume")) || VOLUME_DEFAULT;
+const synthTwoVolumeInitial = evaluateLocalStorage(
+  "synthTwoVolume",
+  VOLUME_DEFAULT,
+);
 
 const synthOneVolumeSlice = createSlice({
   name: "synth1VolumeSlice",

@@ -1,11 +1,16 @@
+import { evaluateLocalStorage } from "@/functions/evaluateLocalStorage";
 import { PITCH_DEFAULT } from "@/localStorage/localStorageDefaults";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const synthOnePitchInitial =
-  Number(localStorage.getItem("synthOnePitch")) || PITCH_DEFAULT;
+const synthOnePitchInitial = evaluateLocalStorage(
+  "synthOnePitch",
+  PITCH_DEFAULT,
+);
 
-const synthTwoPitchInitial =
-  Number(localStorage.getItem("synthTwoPitch")) || PITCH_DEFAULT;
+const synthTwoPitchInitial = evaluateLocalStorage(
+  "synthTwoPitch",
+  PITCH_DEFAULT,
+);
 
 const synthOnePitchSlice = createSlice({
   name: "synthOnePitchSlice",

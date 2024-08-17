@@ -7,20 +7,36 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useLFOContext } from "@/context/LFOContext";
+import useMountEffect from "@/hooks/useMountEffect";
+import { LFO_WAVEFORM_DEFAULT } from "@/localStorage/localStorageDefaults";
 import { BaseWaveformType } from "@/types";
 import { useState } from "react";
 
 export default function LFOWaveform() {
   const lfo = useLFOContext();
   const [LFOWaveformState, setLFOWaveformState] = useState<BaseWaveformType>(
-    lfo.get().type.toString() as BaseWaveformType,
+    (localStorage.getItem("synthOneLfoWaveform") as BaseWaveformType) ||
+      LFO_WAVEFORM_DEFAULT,
   );
+
+  useMountEffect(() => {
+    lfo.set({
+      type:
+        (localStorage.getItem("synthOneLfoWaveform") as BaseWaveformType) ||
+        LFO_WAVEFORM_DEFAULT,
+    });
+  });
 
   function handleWaveformChange(value: string) {
     lfo.set({
       type: value as BaseWaveformType,
     });
     setLFOWaveformState(value as BaseWaveformType);
+    if (value !== LFO_WAVEFORM_DEFAULT) {
+      localStorage.setItem("synthOneLfoWaveform", value);
+    } else {
+      localStorage.removeItem("synthOneLfoWaveform");
+    }
   }
   return (
     <div className="lfo-waveform flex h-full flex-col items-center justify-between py-[0.4rem]">

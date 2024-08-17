@@ -1,11 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DETUNE_DEFAULT } from "@/localStorage/localStorageDefaults";
+import { evaluateLocalStorage } from "@/functions/evaluateLocalStorage";
 
-const synthOneDetuneInit: number =
-  Number(localStorage.getItem("synthOneDetune")) || DETUNE_DEFAULT;
+const synthOneDetuneInit: number = evaluateLocalStorage(
+  "synthOneDetune",
+  DETUNE_DEFAULT,
+);
 
-const synthTwoDetuneInit: number =
-  Number(localStorage.getItem("synthTwoDetune")) || DETUNE_DEFAULT;
+const synthTwoDetuneInit: number = evaluateLocalStorage(
+  "synthTwoDetune",
+  DETUNE_DEFAULT,
+);
 
 const synthOneDetuneSlice = createSlice({
   name: "SynthOneDetuneSlice",

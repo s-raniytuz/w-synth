@@ -1,3 +1,4 @@
+import { evaluateLocalStorage } from "@/functions/evaluateLocalStorage";
 import {
   ATTACK_CURVE_DEFAULT,
   ATTACK_DEFAULT,
@@ -12,35 +13,35 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { EnvelopeCurve } from "tone";
 
 const synthOneEnvelopeInit: ExtendedEnvelopeType<number> = {
-  attack: Number(localStorage.getItem("synthOneAttack")) || ATTACK_DEFAULT,
-  decay: Number(localStorage.getItem("synthOneDecay")) || DECAY_DEFAULT,
-  sustain: Number(localStorage.getItem("synthOneSustain")) || SUSTAIN_DEFAULT,
-  release: Number(localStorage.getItem("synthOneRelease")) || RELEASE_DEFAULT,
-  attackCurve:
-    (localStorage.getItem("synthOneAttackCurve") as EnvelopeCurve) ||
+  attack: evaluateLocalStorage("synthOneAttack", ATTACK_DEFAULT),
+  decay: evaluateLocalStorage("synthOneDecay", DECAY_DEFAULT),
+  sustain: evaluateLocalStorage("synthOneSustain", SUSTAIN_DEFAULT),
+  release: evaluateLocalStorage("synthOneRelease", RELEASE_DEFAULT),
+  attackCurve: evaluateLocalStorage(
+    "synthOneAttackCurve",
     ATTACK_CURVE_DEFAULT,
-  decayCurve:
-    (localStorage.getItem("synthOneDecayCurve") as DecayCurve) ||
-    DECAY_CURVE_DEFAULT,
-  releaseCurve:
-    (localStorage.getItem("synthOneReleaseCurve") as EnvelopeCurve) ||
+  ),
+  decayCurve: evaluateLocalStorage("synthOneDecayCurve", DECAY_CURVE_DEFAULT),
+  releaseCurve: evaluateLocalStorage(
+    "synthOneReleaseCurve",
     RELEASE_CURVE_DEFAULT,
+  ),
 };
 
 const synthTwoEnvelopeInit: ExtendedEnvelopeType<number> = {
-  attack: Number(localStorage.getItem("synthTwoAttack")) || ATTACK_DEFAULT,
-  decay: Number(localStorage.getItem("synthTwoDecay")) || DECAY_DEFAULT,
-  sustain: Number(localStorage.getItem("synthTwoSustain")) || SUSTAIN_DEFAULT,
-  release: Number(localStorage.getItem("synthTwoRelease")) || RELEASE_DEFAULT,
-  attackCurve:
-    (localStorage.getItem("synthTwoAttackCurve") as EnvelopeCurve) ||
+  attack: evaluateLocalStorage("synthTwoAttack", ATTACK_DEFAULT),
+  decay: evaluateLocalStorage("synthTwoDecay", DECAY_DEFAULT),
+  sustain: evaluateLocalStorage("synthTwoSustain", SUSTAIN_DEFAULT),
+  release: evaluateLocalStorage("synthTwoRelease", RELEASE_DEFAULT),
+  attackCurve: evaluateLocalStorage(
+    "synthTwoAttackCurve",
     ATTACK_CURVE_DEFAULT,
-  decayCurve:
-    (localStorage.getItem("synthTwoDecayCurve") as DecayCurve) ||
-    DECAY_CURVE_DEFAULT,
-  releaseCurve:
-    (localStorage.getItem("synthTwoReleaseCurve") as EnvelopeCurve) ||
+  ),
+  decayCurve: evaluateLocalStorage("synthTwoDecayCurve", DECAY_CURVE_DEFAULT),
+  releaseCurve: evaluateLocalStorage(
+    "synthTwoReleaseCurve",
     RELEASE_CURVE_DEFAULT,
+  ),
 };
 
 const synthOneEnvelopeSlice = createSlice({

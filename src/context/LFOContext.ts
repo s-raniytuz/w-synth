@@ -8,7 +8,7 @@ export const LinkedNodeContext = createContext<
   | undefined
   | {
       linkedNode: LinkedNode;
-      setLinkedNode: Dispatch<SetStateAction<LinkedNode>>;
+      setLinkedNode: (value: LinkedNode) => void;
     }
 >(undefined);
 

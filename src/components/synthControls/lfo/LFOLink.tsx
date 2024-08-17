@@ -7,6 +7,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useLinkedNodeContext } from "@/context/LFOContext";
+import { LFO_LINK_DEFAULT } from "@/localStorage/localStorageDefaults";
 import { LinkedNode } from "@/types";
 
 export default function LFOLink() {
@@ -14,6 +15,11 @@ export default function LFOLink() {
 
   function handleLinkChange(value: string) {
     setLinkedNode(value as LinkedNode);
+    if (value !== LFO_LINK_DEFAULT) {
+      localStorage.setItem("synthOneLfoLink", value);
+    } else {
+      localStorage.removeItem("synthOneLfoLink");
+    }
   }
   return (
     <div className="lfo-link flex h-full flex-col items-center justify-between py-[0.4rem]">

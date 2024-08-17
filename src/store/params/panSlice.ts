@@ -1,11 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { PAN_DEFAULT } from "@/localStorage/localStorageDefaults";
+import { evaluateLocalStorage } from "@/functions/evaluateLocalStorage";
 
-const synthOnePanInitial =
-  Number(localStorage.getItem("synthOnePan")) || PAN_DEFAULT;
+const synthOnePanInitial = evaluateLocalStorage("synthOnePan", PAN_DEFAULT);
 
-const synthTwoPanInitial =
-  Number(localStorage.getItem("synthTwoPan")) || PAN_DEFAULT;
+const synthTwoPanInitial = evaluateLocalStorage("synthTwoPan", PAN_DEFAULT);
 
 const SynthOnePanSlice = createSlice({
   name: "SynthOnePanSlice",
