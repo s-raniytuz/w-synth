@@ -1,10 +1,12 @@
-type LocalStorageItemType = "string" | "number";
+type LocalStorageItemType = "string" | "number" | "boolean";
 
 function getTypedItem(item: string, type: LocalStorageItemType) {
   if (type === "string") {
     return item.toString();
-  } else {
+  } else if (type === "number") {
     return Number(item);
+  } else if (type === "boolean") {
+    return Boolean(item);
   }
 }
 

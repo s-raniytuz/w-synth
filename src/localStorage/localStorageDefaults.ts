@@ -1,3 +1,5 @@
+import { LinkedNode } from "@/types";
+
 export const WAVEFORM_DEFAULT = "sine";
 
 export const VOLUME_DEFAULT = 30;
@@ -17,5 +19,6 @@ export const RELEASE_DEFAULT = 1;
 export const RELEASE_CURVE_DEFAULT = "exponential";
 
 export const LFO_AMPLITUDE_DEFAULT = 0.5;
-export const LFO_LINK_DEFAULT = "volume";
+export const LFO_LINK_DEFAULT: LinkedNode = "volume";
 export const LFO_WAVEFORM_DEFAULT = "sine";
+export const LFO_SWITCH_DEFAULT = false;

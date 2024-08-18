@@ -1,9 +1,8 @@
+import { CentauriLFO } from "@/classes/CentauriLFO";
 import { LinkedNode } from "@/types";
-import { Dispatch } from "react";
-import { createContext, SetStateAction, useContext } from "react";
-import { LFO } from "tone";
+import { createContext, useContext } from "react";
 
-export const LFOContext = createContext<LFO | undefined>(undefined);
+export const LFOContext = createContext<CentauriLFO | undefined>(undefined);
 export const LinkedNodeContext = createContext<
   | undefined
   | {

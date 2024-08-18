@@ -6,21 +6,28 @@ import {
   SelectGroup,
   SelectValue,
 } from "@/components/ui/select";
-import { useLinkedNodeContext } from "@/context/LFOContext";
 import { LFO_LINK_DEFAULT } from "@/localStorage/localStorageDefaults";
+import { synthOneLFOLinkSwitchActions } from "@/store";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { LinkedNode } from "@/types";
 
 export default function LFOLink() {
-  const { linkedNode, setLinkedNode } = useLinkedNodeContext();
+  const dispatch = useAppDispatch();
 
-  function handleLinkChange(value: string) {
-    setLinkedNode(value as LinkedNode);
+  const linkedNode = useAppSelector(
+    (state) => state.synthOneLFOLinkSwitch.link,
+  );
+
+  function handleLinkChange(value: LinkedNode) {
+    dispatch(synthOneLFOLinkSwitchActions.setLink(value));
+
     if (value !== LFO_LINK_DEFAULT) {
       localStorage.setItem("synthOneLfoLink", value);
     } else {
       localStorage.removeItem("synthOneLfoLink");
     }
   }
+
   return (
     <div className="lfo-link flex h-full flex-col items-center justify-between py-[0.4rem]">
       <p
