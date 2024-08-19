@@ -92,7 +92,7 @@ export default function EnvelopeRelease() {
         >
           <SelectValue />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="rounded">
           <SelectGroup>
             <SelectLabel>Release Curve</SelectLabel>
             <SelectItem value="linear">&zwnj;Linear</SelectItem>

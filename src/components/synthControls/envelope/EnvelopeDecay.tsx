@@ -92,7 +92,7 @@ export default function EnvelopeDecay() {
         >
           <SelectValue />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="rounded">
           <SelectGroup>
             <SelectLabel>Decay Curve</SelectLabel>
             <SelectItem value="linear">&zwnj;Linear</SelectItem>

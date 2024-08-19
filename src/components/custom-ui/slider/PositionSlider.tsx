@@ -15,6 +15,7 @@ export default function PositionSlider({
   className,
   speed = 1,
   onChange = () => {},
+  type = "default",
 }: {
   min?: number;
   max?: number;
@@ -23,6 +24,7 @@ export default function PositionSlider({
   className?: string;
   speed?: number;
   onChange?: (value: number) => void;
+  type?: "default" | "lfo";
 }) {
   const inputref = useRef<null | HTMLDivElement>(null);
   const degree = useRef(percentToDegree(valueToPercent(min, max, initValue)));
@@ -96,7 +98,14 @@ export default function PositionSlider({
   | NUMBER 3 IN THE EXECUTION FLOW
   */
   function propagatePosition(degree: number) {
-    const value = Math.round(percentToValue(min, max, degreeToPercent(degree)));
+    let value: number;
+    if (type === "default") {
+      value = Math.round(percentToValue(min, max, degreeToPercent(degree)));
+    } else {
+      value =
+        Math.round(percentToValue(min, max, degreeToPercent(degree)) * 100) /
+        100;
+    }
     setSliderState(value);
     onChange(value);
   }
@@ -129,7 +138,7 @@ export default function PositionSlider({
         className,
       )}
     >
-      {sliderState}
+      {type === "default" ? sliderState : `${sliderState}Hz`}
     </div>
   );
 }

@@ -26,7 +26,7 @@ export class CentauriLFO extends LFO {
   dynamicConnect(node: InputNode) {
     if (store.getState().synthOneLFOLinkSwitch.link === "volume") {
       this.set({
-        min: -10,
+        min: 0,
       });
     } else if (store.getState().synthOneLFOLinkSwitch.link === "pan") {
       this.set({

@@ -4,6 +4,7 @@ import LFOConnector from "./LFOConnector";
 import LFOSwitch from "./LFOSwitch";
 import LFOControls from "./LFOControls";
 import { CentauriLFO } from "@/classes/CentauriLFO";
+import LFOFrequency from "./LFOFrequency";
 
 const initLFOOptions: Partial<LFOOptions> = {
   amplitude: 1,
@@ -24,7 +25,7 @@ export default function LFOContainer() {
           </p>
           <div className="h-4 w-4 rounded-[50%]"></div>
         </div>
-        <div className="lfo-waveform-display h-[40%] w-full rounded"></div>
+        <LFOFrequency />
         <LFOControls />
       </div>
 
