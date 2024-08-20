@@ -19,7 +19,7 @@ const SynthOnePanSlice = createSlice({
 });
 
 const SynthTwoPanSlice = createSlice({
-  name: "SynthOnePanSlice",
+  name: "SynthTwoPanSlice",
   initialState: {
     pan: synthTwoPanInitial,
   },

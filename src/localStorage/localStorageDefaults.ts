@@ -1,4 +1,5 @@
-import { LinkedNode } from "@/types";
+import { BaseWaveformType, LFOFrequencyUnitType, LinkedNode } from "@/types";
+import { Unit } from "tone";
 
 export const WAVEFORM_DEFAULT = "sine";
 
@@ -20,5 +21,7 @@ export const RELEASE_CURVE_DEFAULT = "exponential";
 
 export const LFO_AMPLITUDE_DEFAULT = 0.5;
 export const LFO_LINK_DEFAULT: LinkedNode = "volume";
-export const LFO_WAVEFORM_DEFAULT = "sine";
+export const LFO_WAVEFORM_DEFAULT: BaseWaveformType = "sine";
 export const LFO_SWITCH_DEFAULT = false;
+export const LFO_FREQUENCY_DEFAULT: Unit.Frequency = "4n";
+export const LFO_FREQUENCY_UNIT_DEFAULT: LFOFrequencyUnitType = "time";

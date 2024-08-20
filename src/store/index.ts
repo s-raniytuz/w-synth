@@ -17,6 +17,10 @@ import {
   SynthOneLFOLinkSwitchSlice,
   SynthTwoLFOLinkSwitchSlice,
 } from "./lfo/LFOLinkSwitch";
+import {
+  synthOneLFOMainControlsSlice,
+  synthTwoLFOMainControlsSlice,
+} from "./lfo/LFOMainControls";
 
 const store = configureStore({
   reducer: {
@@ -31,6 +35,7 @@ const store = configureStore({
     synthOneEnvelope: synthOneEnvelopeSlice.reducer,
 
     synthOneLFOLinkSwitch: SynthOneLFOLinkSwitchSlice.reducer,
+    synthOneLFOMainControls: synthOneLFOMainControlsSlice.reducer,
 
     // SYNTH 2
     synthTwoVolume: synthTwoVolumeSlice.reducer,
@@ -40,7 +45,8 @@ const store = configureStore({
     synthTwoWaveform: synthTwoWaveformSlice.reducer,
     synthTwoEnvelopeSlice: synthTwoEnvelopeSlice.reducer,
 
-    SynthTwoLFOLinkSwitch: SynthTwoLFOLinkSwitchSlice.reducer,
+    synthTwoLFOLinkSwitch: SynthTwoLFOLinkSwitchSlice.reducer,
+    synthTwoLFOMainControls: synthTwoLFOMainControlsSlice.reducer,
   },
 });
 
@@ -55,6 +61,8 @@ export const synthOneWaveformActions = synthOneWaveformSlice.actions;
 export const synthOneEnvelopeActions = synthOneEnvelopeSlice.actions;
 
 export const synthOneLFOLinkSwitchActions = SynthOneLFOLinkSwitchSlice.actions;
+export const synthOneLFOMainControlsActions =
+  synthOneLFOMainControlsSlice.actions;
 
 // SYNTH 2
 export const synthTwoVolumeActions = synthTwoVolumeSlice.actions;
@@ -65,6 +73,8 @@ export const synthTwoWaveformActions = synthTwoWaveformSlice.actions;
 export const synthTwoEnvelopeActions = synthTwoEnvelopeSlice.actions;
 
 export const synthTwoLFOLinkSwitchActions = SynthTwoLFOLinkSwitchSlice.actions;
+export const synthTwoLFOMainControlsActions =
+  synthTwoLFOMainControlsSlice.actions;
 
 export { store };
 

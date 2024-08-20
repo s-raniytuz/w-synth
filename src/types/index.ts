@@ -106,6 +106,8 @@ export interface LFOType {
   amplitude: number;
 }
 
+export type LFOFrequencyUnitType = "frequency" | "time";
+
 /*
 |
 | Local Storage types

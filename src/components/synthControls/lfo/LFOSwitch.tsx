@@ -1,5 +1,4 @@
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { SynthOneLFOLinkSwitchSlice } from "@/store/lfo/LFOLinkSwitch";
 import { cn } from "@/lib/utils";
 import { synthOneLFOLinkSwitchActions } from "@/store";
 

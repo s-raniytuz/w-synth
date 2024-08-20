@@ -122,14 +122,20 @@ export default function PositionSlider({
     document.removeEventListener("mouseup", trackerCleanup);
   }
 
+  function handleReset(defaultValue: number) {
+    const defaultDegree = percentToDegree(
+      valueToPercent(min, max, defaultValue),
+    );
+
+    degree.current = defaultDegree;
+
+    propagatePosition(defaultDegree);
+  }
+
   return (
     <div
       onMouseDown={handleInitializePositionTracker}
-      onDoubleClick={() =>
-        propagatePosition(
-          percentToDegree(valueToPercent(min, max, defaultValue)),
-        )
-      }
+      onDoubleClick={() => handleReset(defaultValue)}
       onDragStart={(e) => e.preventDefault()}
       draggable="false"
       ref={inputref}
